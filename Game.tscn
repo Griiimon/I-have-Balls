@@ -1,0 +1,152 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://icon.png" type="Texture" id=1]
+[ext_resource path="res://Scripts/Ball.gd" type="Script" id=2]
+[ext_resource path="res://Scripts/Game.gd" type="Script" id=3]
+[ext_resource path="res://addons/kenney_prototypes/assets/colors/orange/materials/material_001.tres" type="Material" id=4]
+[ext_resource path="res://addons/kenney_prototypes/assets/colors/green/materials/material_001.tres" type="Material" id=5]
+[ext_resource path="res://addons/kenney_prototypes/demo/demo_environment.tres" type="Environment" id=6]
+
+[sub_resource type="PhysicsMaterial" id=5]
+rough = true
+bounce = 0.24
+
+[sub_resource type="SphereMesh" id=1]
+radius = 0.5
+height = 1.0
+
+[sub_resource type="SpatialMaterial" id=2]
+albedo_color = Color( 1, 0.105882, 0.105882, 1 )
+albedo_texture = ExtResource( 1 )
+
+[sub_resource type="SphereShape" id=3]
+radius = 0.5
+
+[node name="Game" type="Spatial"]
+script = ExtResource( 3 )
+
+[node name="TODO" type="Node" parent="."]
+__meta__ = {
+"_editor_description_": "Elevators
+produce energy by going fast through tubes (build them where it makes sense)
+build cannon to shoot yourself
+"
+}
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource( 6 )
+
+[node name="Ball" type="RigidBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.33818, 0 )
+physics_material_override = SubResource( 5 )
+continuous_cd = true
+angular_damp = 0.2
+script = ExtResource( 2 )
+rolling_force = 300.0
+mouse_rotation_speed = 0.005
+
+[node name="MeshInstance" type="MeshInstance" parent="Ball"]
+mesh = SubResource( 1 )
+material/0 = SubResource( 2 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Ball"]
+shape = SubResource( 3 )
+
+[node name="Floor" type="CSGBox" parent="."]
+use_collision = true
+width = 500.0
+height = 0.137706
+depth = 500.0
+material = ExtResource( 4 )
+
+[node name="Objects" type="Spatial" parent="."]
+
+[node name="CSGBox" type="CSGBox" parent="Objects"]
+transform = Transform( 1, 0, 0, 0, 0.988186, -0.153262, 0, 0.153262, 0.988186, 0, 0, -13.1773 )
+use_collision = true
+width = 20.0
+depth = 100.0
+material = ExtResource( 5 )
+
+[node name="CSGBox2" type="CSGBox" parent="Objects"]
+transform = Transform( 1, 0, 0, 0, 0.950228, -0.311556, 0, 0.311556, 0.950228, -31.2886, 0, -13.1773 )
+use_collision = true
+width = 20.0
+depth = 100.0
+material = ExtResource( 5 )
+
+[node name="CSGBox3" type="CSGBox" parent="Objects"]
+transform = Transform( 1, 0, 0, 0, 0.854114, -0.520086, 0, 0.520086, 0.854114, -75.9209, 0, -13.1773 )
+use_collision = true
+width = 20.0
+depth = 100.0
+material = ExtResource( 5 )
+
+[node name="CSGSphere" type="CSGSphere" parent="Objects"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -30.1918, 74.6887 )
+use_collision = true
+radius = 54.097
+radial_segments = 32
+rings = 16
+material = ExtResource( 5 )
+
+[node name="CSGCylinder" type="CSGCylinder" parent="Objects"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 53.9636, -6.50323, -18.8383 )
+use_collision = true
+radius = 9.71043
+height = 98.6533
+sides = 32
+material = ExtResource( 5 )
+
+[node name="CSGCylinder2" type="CSGCylinder" parent="Objects"]
+transform = Transform( 1, 0, 0, 0, -0.12516, -0.992136, 0, 0.992136, -0.12516, 102.793, 34.9664, -18.8383 )
+use_collision = true
+radius = 28.5248
+height = 200.0
+sides = 32
+material = ExtResource( 5 )
+
+[node name="CSGCylinder3" type="CSGCylinder" parent="Objects/CSGCylinder2"]
+operation = 2
+use_collision = true
+radius = 28.0
+height = 200.0
+sides = 32
+material = ExtResource( 5 )
+
+[node name="CSGCylinder3" type="CSGCylinder" parent="Objects"]
+transform = Transform( -0.077624, -0.996983, -4.35795e-08, 3.82137e-15, 4.37114e-08, -1, 0.996983, -0.077624, -3.39305e-09, -116.451, 34.9664, 102.077 )
+use_collision = true
+radius = 50.0
+height = 200.0
+sides = 32
+material = ExtResource( 5 )
+
+[node name="CSGCylinder3" type="CSGCylinder" parent="Objects/CSGCylinder3"]
+operation = 2
+use_collision = true
+radius = 49.0
+height = 200.0
+sides = 32
+material = ExtResource( 5 )
+
+[node name="CSGBox4" type="CSGBox" parent="Objects/CSGCylinder3"]
+transform = Transform( 1, 0, -2.22045e-16, 0, 1, -1.66533e-15, -1.55431e-15, 2.32592e-14, 1, 8.93272, -49.8993, -36.3382 )
+operation = 2
+use_collision = true
+width = 50.0
+height = 210.0
+depth = 40.0
+material = ExtResource( 5 )
+
+[node name="CSGTorus" type="CSGTorus" parent="Objects"]
+transform = Transform( 1, 0, 0, 0, 0.762205, -0.647335, 0, 0.647335, 0.762205, 0, 9.02427, -79.4713 )
+use_collision = true
+inner_radius = 11.5857
+outer_radius = 18.4226
+sides = 32
+ring_sides = 24
+material = ExtResource( 5 )
+
+[node name="Camera" type="Camera" parent="."]
+far = 8192.0
